@@ -101,19 +101,26 @@ public class PhotoActivityFragment extends Fragment {
             AsyncHttpClient client = new AsyncHttpClient();
 
             RequestParams params = new RequestParams();
-            try {
-                File file = new File(fotopath);
-                params.put("2", file);
-                Log.d("UploadPhoto", file.toString());
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            final File file = new File(fotopath);
+            params.put("path", file.getPath());
+            Log.d("UploadPhoto", file.toString());
 
             client.post("https://multimediaimgvid.firebaseio.com/fotos/", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Log.d("onFailure", "Failed");
+                    /*Log.d("onFailure", "Failed");
                     Log.d("onFailure", headers.toString());
+                    getActivity().finish();*/
+                    Log.d("Success", "Success..");
+                    //String ruta = new String(responseBody);
+                    String ruta = new String(file.getPath());
+                    Photo foto = new Photo();
+                    foto.setPath(ruta);
+                    foto.setName(fotoname);
+                    foto.setLat(location.getLatitude());
+                    foto.setLon(location.getLongitude());
+                    Firebase newNota = fotos.push();
+                    newNota.setValue(foto);
                     getActivity().finish();
                 }
 
