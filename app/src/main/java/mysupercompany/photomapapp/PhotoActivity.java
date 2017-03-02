@@ -12,7 +12,7 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 }

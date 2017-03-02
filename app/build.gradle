@@ -42,6 +42,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
     compile 'com.github.MKergall.osmbonuspack:OSMBonusPack:v5.7'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 

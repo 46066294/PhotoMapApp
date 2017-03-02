@@ -50,6 +50,7 @@ public class PhotoActivityFragment extends Fragment {
 
         fotos = ref.child("fotos");
 
+
         bt_hacerfoto = (Button) view.findViewById(R.id.button1);
 
         //apunts clase
@@ -99,10 +100,11 @@ public class PhotoActivityFragment extends Fragment {
 
             AsyncHttpClient client = new AsyncHttpClient();
 
-            File file = new File(fotopath);
             RequestParams params = new RequestParams();
             try {
-                params.put("UploadPhoto", file);
+                File file = new File(fotopath);
+                params.put("2", file);
+                Log.d("UploadPhoto", file.toString());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -110,13 +112,14 @@ public class PhotoActivityFragment extends Fragment {
             client.post("https://multimediaimgvid.firebaseio.com/fotos/", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    System.out.print("Failed..");
+                    Log.d("onFailure", "Failed");
+                    Log.d("onFailure", headers.toString());
                     getActivity().finish();
                 }
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    System.out.print("Success..");
+                    Log.d("Success", "Success..");
                     String ruta = new String(responseBody);
                     Photo foto = new Photo();
                     foto.setPath(ruta);

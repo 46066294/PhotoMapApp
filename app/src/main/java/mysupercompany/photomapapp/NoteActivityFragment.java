@@ -87,10 +87,10 @@ public class NoteActivityFragment extends Fragment {
             nota.setTitle(etTitle.getText().toString());
             nota.setMessage(etDescription.getText().toString());
             //Log.d("location latitude", String.valueOf(location.getLatitude()));
-            //nota.setLat(location.getLatitude());
-            //nota.setLon(location.getLongitude());
-            nota.setLat(41.398272);
-            nota.setLon(2.2033569);
+            nota.setLat(location.getLatitude());
+            nota.setLon(location.getLongitude());
+            //nota.setLat(41.398272);
+            //nota.setLon(2.2033569);
             Firebase newNota = notas.push();
             newNota.setValue(nota);
             getActivity().finish();

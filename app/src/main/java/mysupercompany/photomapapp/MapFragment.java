@@ -134,7 +134,7 @@ public class MapFragment extends Fragment {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                System.out.println("The read failed: " + firebaseError.getMessage());
+                Log.d("The read failed: " , firebaseError.getMessage());
             }
         });
     }
@@ -145,7 +145,7 @@ public class MapFragment extends Fragment {
         map.getOverlays().add(photosMarkers);
         map.getOverlays().add(notesMarkers);
         //Drawable clusterIconD = getResources().getDrawable(R.drawable.marker_default);
-        Drawable clusterIconD = ContextCompat.getDrawable(getActivity(), R.drawable.marker_default);
+        Drawable clusterIconD = ContextCompat.getDrawable(getActivity(), R.drawable.marker_default_focused_base);
         Bitmap clusterIcon = ((BitmapDrawable)clusterIconD).getBitmap();
         photosMarkers.setIcon(clusterIcon);
         photosMarkers.setRadius(200);

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseListAdapter;
 import com.squareup.picasso.Picasso;
@@ -40,7 +41,14 @@ public class PhotoFragmentAdapter extends Fragment {
             @Override
             protected void populateView(View view, Photo photo, int position) {
                 ((TextView)view.findViewById(R.id.tvRuta)).setText(photo.getName());
-                Picasso.with(getActivity().getApplicationContext()).load(photo.getPath()).into(((ImageView)view.findViewById(R.id.iFoto)));
+                //Picasso.with(getActivity().getApplicationContext()).load(photo.getPath()).into(((ImageView)view.findViewById(R.id.iFoto)));
+                Log.d("carga foto", "carga foto");
+
+                Glide
+                        .with(getContext())
+                        .load(photo.getPath())
+                        .into(((ImageView)view.findViewById(R.id.iFoto)));
+
                 Log.d("load Photo", photo.getPath());
             }
         };
@@ -48,5 +56,6 @@ public class PhotoFragmentAdapter extends Fragment {
 
         return view;
     }
+
 
 }
