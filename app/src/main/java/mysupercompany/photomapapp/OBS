@@ -1,4 +1,21 @@
+https://console.firebase.google.com/project/multimediaimgvid/database/data/
 
 Agrega Firebase a tu app
 https://firebase.google.com/docs/android/setup
 
+Adding Multimedia to an App
+https://www.javacodegeeks.com/2015/09/android-ui-adding-multimedia-to-an-app.html
+
+http://www.androidcurso.com/index.php/tutoriales-android/37-unidad-6-multimedia-y-ciclo-de-vida/167-un-reproductor-multimedia-paso-a-paso
+http://www.androidauthority.com/raspberry-pi-zero-w-specs-price-release-date-753637/
+https://developer.android.com/training/location/retrieve-current.html
+https://developer.android.com/reference/android/location/LocationManager.html
+https://developer.android.com/reference/android/location/Location.html#getLatitude()
+http://loopj.com/android-async-http/
+
+
+stackoverflow
+http://stackoverflow.com/questions/29843997/location-getlatitude-throws-nullpointerexception-android
+http://stackoverflow.com/questions/32072568/add-google-services-json-in-android-studio
+http://stackoverflow.com/questions/17150066/nullpointerexception-location-getlatitude-method
+http://stackoverflow.com/questions/32290045/error-invoke-virtual-method-double-android-location-location-getlatitude-on

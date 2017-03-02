@@ -7,4 +7,14 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_nota"
+        android:title="Note"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_foto"
+        android:title="Photo"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>
