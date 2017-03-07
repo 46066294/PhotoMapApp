@@ -76,7 +76,7 @@ public class VideoActivityFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        super.onActivityResult(requestCode, resultCode, data); 
+        super.onActivityResult(requestCode, resultCode, data);
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
