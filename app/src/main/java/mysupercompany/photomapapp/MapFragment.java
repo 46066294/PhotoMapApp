@@ -45,6 +45,7 @@ public class MapFragment extends Fragment {
     private IMapController mapController;
     private RadiusMarkerClusterer photosMarkers;
     private RadiusMarkerClusterer notesMarkers;
+    private RadiusMarkerClusterer videosMarkers;
 
     public MapFragment() {
         // Required empty public constructor
@@ -144,18 +145,56 @@ public class MapFragment extends Fragment {
             }
         });
 
+        final Firebase videos = ref.child("videos");
+
+        videos.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Video video = postSnapshot.getValue(Video.class);
+                    Log.d("VIDEO", video.toString());
+
+                    Marker marker = new Marker(map);
+                    GeoPoint point = new GeoPoint(video.getLat(), video.getLon());
+
+                    marker.setPosition(point);
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    //marker.setIcon(getResources().getDrawable(R.drawable.marker_default));
+                    ContextCompat.getDrawable(getActivity(), R.drawable.marker_default);
+                    marker.setTitle(video.getName());
+                    //marker.setAlpha(0.6f);
+                    Log.d("videosMarkers.isEnabled", String.valueOf(videosMarkers.isEnabled()));
+
+                    videosMarkers.add(marker);
+                }
+                videosMarkers.invalidate();
+                map.invalidate();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
+            }
+        });
+
     }
 
     private void setupMarkerOverlay() {
         photosMarkers = new RadiusMarkerClusterer(getContext());
         notesMarkers = new RadiusMarkerClusterer(getContext());
+        videosMarkers = new RadiusMarkerClusterer(getContext());
         map.getOverlays().add(photosMarkers);
         map.getOverlays().add(notesMarkers);
+        map.getOverlays().add(videosMarkers);
         //Drawable clusterIconD = getResources().getDrawable(R.drawable.marker_default);
         Drawable clusterIconD = ContextCompat.getDrawable(getActivity(), R.drawable.marker_default_focused_base);
         Bitmap clusterIcon = ((BitmapDrawable)clusterIconD).getBitmap();
+        notesMarkers.setIcon(clusterIcon);
+        notesMarkers.setRadius(100);
         photosMarkers.setIcon(clusterIcon);
         photosMarkers.setRadius(100);
+        videosMarkers.setIcon(clusterIcon);
+        videosMarkers.setRadius(100);
     }
 
     private void initializeMap() {
