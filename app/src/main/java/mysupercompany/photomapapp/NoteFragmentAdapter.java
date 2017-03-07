@@ -2,9 +2,11 @@ package mysupercompany.photomapapp;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +33,7 @@ public class NoteFragmentAdapter extends Fragment {
 
         Firebase.setAndroidContext(getContext());
         Firebase ref = new Firebase("https://multimediaimgvid.firebaseio.com/");
-        Firebase notes = ref.child("notes");
+        final Firebase notes = ref.child("notes");
 
         firebaseListAdapter = new FirebaseListAdapter<Note>(getActivity(), Note.class, android.R.layout.two_line_list_item, notes) {
             @Override
@@ -41,6 +43,19 @@ public class NoteFragmentAdapter extends Fragment {
             }
         };
         noteList.setAdapter(firebaseListAdapter);
+/*
+        noteList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Photo photo = (Photo) adapterView.getItemAtPosition(i);
+                Note note = (Note) adapterView.getItemAtPosition(i);
+
+                Log.d("notes.getKey()", notes.getKey());
+                //notes.removeValue();
+
+            }
+        });
+*/
 
         return view;
     }

@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.action_foto) {
             Intent i = new Intent(getApplicationContext(), PhotoActivity.class);
             startActivity(i);
+        } else if (id == R.id.action_video) {
+            Intent i = new Intent(getApplicationContext(), VideoActivity.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new NoteFragmentAdapter(), "Notas");
         adapter.addFragment(new MapFragment(), "Mapa");
         adapter.addFragment(new PhotoFragmentAdapter(), "Fotos");
+        adapter.addFragment(new VideoFragmentAdapter(), "Videos");
 
         upViewPager.setAdapter(adapter);
         upViewPager.setPagingEnabled(false);

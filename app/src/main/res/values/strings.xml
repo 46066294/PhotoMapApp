@@ -5,4 +5,8 @@
     <string name="action_photo">Add Foto</string>
     <string name="title_activity_note">Note</string>
     <string name="title_activity_photo">Photo</string>
+    <string name="title_activity_video">VideoActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

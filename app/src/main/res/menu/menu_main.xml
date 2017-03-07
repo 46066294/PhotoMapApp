@@ -9,12 +9,17 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_nota"
-        android:title="Note"
+        android:title="Add Note"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_foto"
-        android:title="Photo"
+        android:title="Add Photo"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_video"
+        android:title="Add Video"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

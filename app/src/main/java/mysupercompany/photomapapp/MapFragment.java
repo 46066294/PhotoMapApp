@@ -75,6 +75,44 @@ public class MapFragment extends Fragment {
         Firebase.setAndroidContext(getContext());
         Firebase ref = new Firebase("https://multimediaimgvid.firebaseio.com/");
 
+
+        final Firebase notes = ref.child("notes");
+
+        notes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Note nota = postSnapshot.getValue(Note.class);
+                    Log.e("NOTE", nota.toString());
+
+                    Marker marker = new Marker(map);
+
+                    GeoPoint point = new GeoPoint(nota.getLon(),nota.getLat());
+
+                    marker.setPosition(point);
+                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                    //marker.setIcon(getResources().getDrawable(R.drawable.marker_default));
+                    ContextCompat.getDrawable(getActivity(), R.drawable.marker_default);
+                    marker.setTitle(nota.getTitle());
+                    marker.setSubDescription(nota.getMessage());
+                    //marker.setAlpha(0.6f);
+
+                    notesMarkers.add(marker);
+                    marker.showInfoWindow();
+                    Log.e("point", point.toString());
+                    Log.e("Marker", marker.toString());
+                }
+                notesMarkers.invalidate();
+                map.invalidate();
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                Log.d("The read failed: " , firebaseError.getMessage());
+            }
+        });
+
         final Firebase fotos = ref.child("fotos");
 
         fotos.addValueEventListener(new ValueEventListener() {
@@ -106,37 +144,6 @@ public class MapFragment extends Fragment {
             }
         });
 
-        final Firebase notes = ref.child("notes");
-
-        notes.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                    Note nota = postSnapshot.getValue(Note.class);
-                    Log.e("NOTE", nota.toString());
-
-                    Marker marker = new Marker(map);
-
-                    GeoPoint point = new GeoPoint(nota.getLat(),nota.getLon());
-
-                    marker.setPosition(point);
-                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                    //marker.setIcon(getResources().getDrawable(R.drawable.marker_default));
-                    ContextCompat.getDrawable(getActivity(), R.drawable.marker_default);
-                    marker.setTitle(nota.getTitle());
-                    //marker.setAlpha(0.6f);
-
-                    notesMarkers.add(marker);
-                }
-                notesMarkers.invalidate();
-                map.invalidate();
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                Log.d("The read failed: " , firebaseError.getMessage());
-            }
-        });
     }
 
     private void setupMarkerOverlay() {
@@ -148,7 +155,7 @@ public class MapFragment extends Fragment {
         Drawable clusterIconD = ContextCompat.getDrawable(getActivity(), R.drawable.marker_default_focused_base);
         Bitmap clusterIcon = ((BitmapDrawable)clusterIconD).getBitmap();
         photosMarkers.setIcon(clusterIcon);
-        photosMarkers.setRadius(200);
+        photosMarkers.setRadius(100);
     }
 
     private void initializeMap() {

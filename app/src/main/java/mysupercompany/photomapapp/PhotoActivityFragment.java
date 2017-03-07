@@ -50,7 +50,6 @@ public class PhotoActivityFragment extends Fragment {
 
         fotos = ref.child("fotos");
 
-
         bt_hacerfoto = (Button) view.findViewById(R.id.button1);
 
         //apunts clase
@@ -75,6 +74,7 @@ public class PhotoActivityFragment extends Fragment {
                 startActivityForResult(cameraIntent, 1);
             }
         });
+
         return view;
     }
 
@@ -83,8 +83,21 @@ public class PhotoActivityFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+        Photo foto = new Photo();
+        foto.setPath(fotopath);
+        foto.setName(fotoname);
+        foto.setLat(location.getLatitude());
+        foto.setLon(location.getLongitude());
+        Firebase newPhoto = fotos.push();
+        newPhoto.setValue(foto);
+
         if (requestCode == 1 && resultCode == getActivity().RESULT_OK) {
-            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            //LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            //final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -93,8 +106,11 @@ public class PhotoActivityFragment extends Fragment {
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
+                Log.d("onActivityResult", "requestCode == 1 && resultCode == getActivity().RESULT_OK");
                 return;
             }
+
+            /*
 
             final Location location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
 
@@ -105,23 +121,16 @@ public class PhotoActivityFragment extends Fragment {
             params.put("path", file.getPath());
             Log.d("UploadPhoto", file.toString());
 
+            //////////////////////////////////////////////////////////////////
+
+
             client.post("https://multimediaimgvid.firebaseio.com/fotos/", params, new AsyncHttpResponseHandler() {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    /*Log.d("onFailure", "Failed");
+                    Log.d("onFailure", "Failed");
                     Log.d("onFailure", headers.toString());
-                    getActivity().finish();*/
-                    Log.d("Success", "Success..");
-                    //String ruta = new String(responseBody);
-                    String ruta = new String(file.getPath());
-                    Photo foto = new Photo();
-                    foto.setPath(ruta);
-                    foto.setName(fotoname);
-                    foto.setLat(location.getLatitude());
-                    foto.setLon(location.getLongitude());
-                    Firebase newNota = fotos.push();
-                    newNota.setValue(foto);
                     getActivity().finish();
+
                 }
 
                 @Override
@@ -137,7 +146,7 @@ public class PhotoActivityFragment extends Fragment {
                     newNota.setValue(foto);
                     getActivity().finish();
                 }
-            });
+            });*/
         }
     }
 }
